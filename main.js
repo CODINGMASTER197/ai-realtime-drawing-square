@@ -1,3 +1,11 @@
+noseX=0;
+noseY=0;
+difference = 0;
+rightWristX = 0;
+leftWristX = 0;
+
+
+
 function preload(){
 
 }
@@ -17,6 +25,15 @@ function setup(){
 function gotPoses(results){
     if(results.length > 0){
         console.log(results);
+        noseX = results[0].pose.nose.x;
+        noseY = results[0].pose.nose.y;
+        console.log("noseX =" + noseX + "noseY =" + noseY);
+
+        leftWristX = results[0].pose.leftWrist.x;
+        rightWristX = results[0].pose.rightWrist.x;
+       difference = floor(leftWristX - rightWristX);
+
+       console.log("leftWristX = " + leftWristX + "rightWristX = " + rightWristX + "difference = " + difference);
     }
 }
 
@@ -26,5 +43,9 @@ function modelLoaded(){
 }
 
 function draw(){
-background("#d8f3dc")
+background("#d8f3dc");
+document.getElementById("square_sides").innerHTML = "Width and Height of a Square will be =" + difference + " px";
+fill("#fb8500");
+stroke("#ffb703");
+square(noseX, noseY, difference);
 }
